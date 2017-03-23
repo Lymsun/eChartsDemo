@@ -11,7 +11,13 @@
     var demo1Chart = echarts.init(document.getElementById('demo1Content'));
 
     demo1Chart.showLoading();
-    $.get('../json/demo1.json').done(function (data) {
+    $.get('../json/demo.json').done(function (data) {
+        var dataShadow = [];
+        var yMax = 400;
+        for (var i = 0; i < data.xCategories.length; i++) {
+            dataShadow.push(yMax);
+        }
+
         var opinion = {
             title: {
                 text: 'demo1'
@@ -30,13 +36,30 @@
                 {
                     type: 'value',
                     name: '案件数',
-                    
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
                     axisLabel: {
                         formatter: '{value} 件'
                     }
                 }
             ],
             series: [
+                {
+                    type: 'bar',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    barGap: '-100%',
+                    barCategoryGap: '40%',
+                    data: dataShadow,
+                    animation: false
+                },
                 {
                     name: '案件总数',
                     type: 'bar',
@@ -56,5 +79,14 @@
         };
         demo1Chart.hideLoading();
         demo1Chart.setOption(opinion);
+    });
+})(jQuery);
+
+(function ($) {
+    var demo2Chart = echarts.init(document.getElementById('demo2Content'));
+
+    demo2Chart.showLoading();
+    $.get('../json/demo.json').done(function (data) {
+
     });
 })(jQuery);

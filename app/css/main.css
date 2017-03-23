@@ -100,10 +100,16 @@ nav
 
 #demo1Content
 {
-    position: flex;
+    margin: 0px auto;
 
-    width: 600px;
-    height: 400px;
+    padding-top: 80px;
+
+    width: 800px;
+    height: 600px;
+}
+
+#demo2Content {
+
 }
 /*
 *content style
