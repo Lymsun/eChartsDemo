@@ -81,12 +81,3 @@
         demo1Chart.setOption(opinion);
     });
 })(jQuery);
-
-(function ($) {
-    var demo2Chart = echarts.init(document.getElementById('demo2Content'));
-
-    demo2Chart.showLoading();
-    $.get('../json/demo.json').done(function (data) {
-
-    });
-})(jQuery);
