@@ -100,30 +100,27 @@ nav
 
 #demo1Content
 {
-    margin: 0px auto;
-
-    padding-top: 80px;
-
     width: 800px;
     height: 600px;
+    margin: 0 auto;
+    padding-top: 80px;
 }
 
-#demo2Content {
-  margin: 0px auto;
-
-  padding-top: 80px;
-
-  width: 800px;
-  height: 600px;
+#demo2Content
+{
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    padding-top: 80px;
 }
 
-#demo3Content {
-  margin: 0px auto;
-
-  padding-top: 80px;
-
-  width: 800px;
-  height: 600px;
+#demo3Content
+{
+    position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 110px;
+  bottom: 0px;
 }
 /*
 *content style
