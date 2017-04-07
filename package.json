@@ -1,0 +1,25 @@
+{
+  "name": "echartdemo",
+  "version": "1.0.0",
+  "description": "packages for echartdemo",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lymsun/eChartsDemo.git"
+  },
+  "keywords": [
+    "echart"
+  ],
+  "author": "lym",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lymsun/eChartsDemo/issues"
+  },
+  "homepage": "https://github.com/Lymsun/eChartsDemo#readme",
+  "dependencies": {
+    "csvtojson": "^1.1.4"
+  }
+}
