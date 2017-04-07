@@ -117,10 +117,15 @@ nav
 #demo3Content
 {
     position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 110px;
-  bottom: 0px;
+    top: 110px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#demo4Content
+{
+
 }
 /*
 *content style

@@ -6,3 +6,7 @@
  * Function:
  *
  */
+
+(function ($) {
+
+})(jQuery);
