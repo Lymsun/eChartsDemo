@@ -8,5 +8,15 @@
  */
 
 (function ($) {
+    function splitData(rawData) {
+        var categoryData = [];
+        var values = [];
+        var volumes = [];
+
+        for (var i = 0; i< rawData.length; i++ ) {
+            
+        }
+    }
+
 
 })(jQuery);
