@@ -23,9 +23,9 @@
         for (var j = 0; j < specificData.length; j++ ) {
             var dateString = specificData[j].Date;
             var pattern = /(\d{4})(\d{2})(\d{2})/;
-            var newDateString = dateString.replace(pattern, '$1-$2-$3');
+            var newDateString = dateString.replace(pattern, '$1/$2/$3');
             categoryData.push(newDateString);
-            values.push(specificData[j].Open, specificData[j].High, specificData[j].Low, specificData[j].Close);
+            values.push([specificData[j].Open, specificData[j].Close, specificData[j].Low, specificData[j].High]);
             volumes.push(specificData[j].Volume);
         }
 
@@ -38,14 +38,14 @@
 
     function calculateMA(dayCount, data) {
         var result = [];
-        for (var i = 0; i < data.values.lenth; i++) {
+        for (var i = 0; i < data.values.length; i++) {
             if (i < dayCount) {
                 result.push('-');
                 continue;
             }
             var sum = 0;
             for (var j = 0; j < dayCount; j++) {
-                sum = sum + data.values[i-j][3];
+                sum = sum + parseFloat(data.values[i-j][1]);
             }
             result.push((sum/dayCount).toFixed(3));
         }
@@ -68,7 +68,7 @@
                 left: 'center',
                 data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
             },
-            tooltip: {
+            /*tooltip: {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'cross'
@@ -86,8 +86,8 @@
                     return obj;
                 },
                 extraCssText: 'width: 170px'
-            },
-            axisPointer: {
+            },*/
+            /*axisPointer: {
                 link: {xAxisIndex: 'all'},
                 label: {
                     backgroundColor: '#777'
@@ -99,7 +99,7 @@
                 outOfBrush: {
                     colorAlpha: 0.1
                 }
-            },
+            },*/
             grid: [
                 {
                     left: '10%',
@@ -118,20 +118,16 @@
                     type: 'category',
                     data: stock.categoryData,
                     scale: true,
-                    boundaryGap: false,
-                    axisLine : {
-                        onZero: false
-                    },
-                    splitLine: {
-                        show: false
-                    },
+                    boundaryGap : false,
+                    axisLine: {onZero: false},
+                    splitLine: {show: false},
                     splitNumber: 20,
                     min: 'dataMin',
-                    max: 'dataMax',
+                    max: 'dataMax'/*,
                     axisPointer: {
                         z: 100
-                    }
-                },
+                    }*/
+                }/*,
                 {
                     type: 'category',
                     gridIndex: 1,
@@ -144,20 +140,8 @@
                     axisLabel: {show: false},
                     splitNumber: 20,
                     min: 'dataMin',
-                    max: 'dataMax'/*,
-                    axisPointer: {
-                        label: {
-                            formatter: function (params) {
-                                var seriesValue = (params.seriesData[0] || {}).value;
-                                return params.value
-                                    + (seriesValue != null
-                                            ? '\n' + echarts.format.addCommas(seriesValue)
-                                            : ''
-                                    );
-                            }
-                        }
-                    }*/
-                }
+                    max: 'dataMax'
+                }*/
             ],
             yAxis: [
                 {
@@ -165,7 +149,7 @@
                     splitArea: {
                         show: true
                     }
-                },
+                }/*,
                 {
                     scale: true,
                     gridIndex: 1,
@@ -182,9 +166,9 @@
                     splitLine: {
                         show: false
                     }
-                }
+                }*/
             ],
-            dataZoom: [
+            /*dataZoom: [
                 {
                     type: 'inside',
                     xAxisIndex: [0, 1],
@@ -199,7 +183,7 @@
                     start: 98,
                     end: 100
                 }
-            ],
+            ],*/
             series: [
                 {
                     name: 'Dow-Jones index',
@@ -241,14 +225,14 @@
                     lineStyle: {
                         normal: {opacity: 0.5}
                     }
-                },
+                }/*,
                 {
                     name: 'Volume',
                     type: 'bar',
                     xAxisIndex: 1,
                     yAxisIndex: 1,
                     data: stock.volumes
-                }
+                }*/
             ]
         };
 
