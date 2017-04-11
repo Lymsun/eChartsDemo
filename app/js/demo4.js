@@ -68,7 +68,7 @@
                 left: 'center',
                 data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
             },
-            /*tooltip: {
+            tooltip: {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'cross'
@@ -80,17 +80,22 @@
                 textStyle: {
                     color: '#000'
                 },
-                position: function (pos, params, el, elRect, size) {
-                    var obj = {top: 10};
-                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
-                    return obj;
-                },
                 extraCssText: 'width: 170px'
-            },*/
-            /*axisPointer: {
+            },
+            axisPointer: {
                 link: {xAxisIndex: 'all'},
                 label: {
                     backgroundColor: '#777'
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: false
+                    },
+                    brush: {
+                        type: ['lineX', 'clear']
+                    }
                 }
             },
             brush: {
@@ -99,7 +104,7 @@
                 outOfBrush: {
                     colorAlpha: 0.1
                 }
-            },*/
+            },
             grid: [
                 {
                     left: '10%',
@@ -123,11 +128,11 @@
                     splitLine: {show: false},
                     splitNumber: 20,
                     min: 'dataMin',
-                    max: 'dataMax'/*,
+                    max: 'dataMax',
                     axisPointer: {
                         z: 100
-                    }*/
-                }/*,
+                    }
+                },
                 {
                     type: 'category',
                     gridIndex: 1,
@@ -141,7 +146,7 @@
                     splitNumber: 20,
                     min: 'dataMin',
                     max: 'dataMax'
-                }*/
+                }
             ],
             yAxis: [
                 {
@@ -149,7 +154,7 @@
                     splitArea: {
                         show: true
                     }
-                }/*,
+                },
                 {
                     scale: true,
                     gridIndex: 1,
@@ -166,13 +171,13 @@
                     splitLine: {
                         show: false
                     }
-                }*/
+                }
             ],
-            /*dataZoom: [
+            dataZoom: [
                 {
                     type: 'inside',
                     xAxisIndex: [0, 1],
-                    start: 98,
+                    start: 65,
                     end: 100
                 },
                 {
@@ -180,10 +185,10 @@
                     type: 'slider',
                     xAxisIndex: [0, 1],
                     top: '85%',
-                    start: 98,
+                    start: 65,
                     end: 100
                 }
-            ],*/
+            ],
             series: [
                 {
                     name: 'Dow-Jones index',
@@ -225,14 +230,14 @@
                     lineStyle: {
                         normal: {opacity: 0.5}
                     }
-                }/*,
+                },
                 {
                     name: 'Volume',
                     type: 'bar',
                     xAxisIndex: 1,
                     yAxisIndex: 1,
                     data: stock.volumes
-                }*/
+                }
             ]
         };
 
