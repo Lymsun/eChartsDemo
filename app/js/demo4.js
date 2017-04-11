@@ -69,18 +69,7 @@
                 data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
             },
             tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross'
-                },
-                backgroundColor: 'rgba(245, 245, 245, 0.8)',
-                borderWidth: 1,
-                borderColor: '#ccc',
-                padding: 10,
-                textStyle: {
-                    color: '#000'
-                },
-                extraCssText: 'width: 170px'
+                trigger: 'axis'
             },
             axisPointer: {
                 link: {xAxisIndex: 'all'},
