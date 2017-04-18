@@ -74,11 +74,13 @@
     }
 
     var demo5Chart = echarts.init(document.getElementById('demo5Content'));
+    var stock = {};
+    var displayData = {};
     demo5Chart.showLoading();
 
     $.get('../json/stock.json').done(function (stockData) {
-        var stock = splitData(stockData);
-        var displayData = initialStock(stock, 30);
+        stock = splitData(stockData);
+        displayData = initialStock(stock, 30);
 
         var opinion = {
             title: {
@@ -239,32 +241,43 @@
 
         demo5Chart.hideLoading();
         demo5Chart.setOption(opinion);
-
-        setInterval(function () {
-            var addCategoryData = displayData.restCategoryData.shift();
-            var addValuesData = displayData.restValues.shift();
-            var addVolumesData = displayData.restVolumes.shift();
-            demo5Chart.setOption({
-                xAxis: [
-                    {
-                        data: addCategoryData
-                    },
-                    {
-                        /*gridIndex: 1,*/
-                        data: addCategoryData
-                    }
-                ],
-                series: [
-                    {
-                        name: 'Dow-Jones index',
-                        data: addValuesData
-                    },
-                    {
-                        name: 'Volume',
-                        data: addVolumesData
-                    }
-                ]
-            });
-        }, 200);
     });
+
+    setInterval(function () {
+        var addCategoryData = displayData.restCategoryData.shift();
+        var addValuesData = displayData.restValues.shift();
+        var addVolumesData = displayData.restVolumes.shift();
+
+        displayData.initialCategoryData.shift();
+        displayData.initialCategoryData.push(addCategoryData);
+
+        displayData.initialValues.shift();
+        displayData.initialValues.push(addValuesData);
+
+        displayData.initialVolumes.shift();
+        displayData.initialVolumes.push(addVolumesData);
+
+        demo5Chart.setOption({
+            xAxis: [
+                {
+                    data: displayData.initialCategoryData
+                },
+                {
+                    gridIndex: 1,
+                    data: displayData.initialCategoryData
+                }
+            ],
+            series: [
+                {
+                    name: 'Dow-Jones index',
+                    data: displayData.initialValues
+                },
+                {
+                    name: 'Volume',
+                    data: displayData.initialVolumes
+                }
+            ]
+        });
+
+    }, 200);
 })(jQuery);
