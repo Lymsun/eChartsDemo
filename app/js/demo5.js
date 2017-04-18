@@ -29,10 +29,31 @@
             volumes.push(specificData[j].Volume);
         }
 
-        return{
+        return {
             categoryData: categoryData,
             values: values,
             volumes: volumes
+        }
+    }
+
+    function initialStock(data, length) {
+        var initialCategoryData = [];
+        var initialValues = [];
+        var initialVolumes = [];
+
+        for (var i = 0; i < length; i++) {
+            initialCategoryData.push(data.categoryData.shift());
+            initialValues.push(data.values.shift());
+            initialVolumes.push(data.volumes.shift());
+        }
+
+        return {
+            initialCategoryData: initialCategoryData,
+            initialValues: initialValues,
+            initialVolumes: initialVolumes,
+            restCategoryData: data.categoryData,
+            restValues: data.values,
+            restVolumes: data.volumes
         }
     }
 
@@ -57,6 +78,7 @@
 
     $.get('../json/stock.json').done(function (stockData) {
         var stock = splitData(stockData);
+        var displayData = initialStock(stock, 30);
 
         var opinion = {
             title: {
@@ -66,7 +88,8 @@
             legend: {
                 bottom: 10,
                 left: 'center',
-                data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
+                data: ['Dow-Jones index']
+                //data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
             },
             tooltip: {
                 trigger: 'axis'
@@ -110,7 +133,7 @@
             xAxis: [
                 {
                     type: 'category',
-                    data: stock.categoryData,
+                    data: displayData.initialCategoryData,
                     scale: true,
                     boundaryGap : false,
                     axisLine: {onZero: false},
@@ -125,7 +148,7 @@
                 {
                     type: 'category',
                     gridIndex: 1,
-                    data: stock.categoryData,
+                    data: displayData.initialCategoryData,
                     scale: true,
                     boundaryGap : false,
                     axisLine: {onZero: false},
@@ -162,29 +185,13 @@
                     }
                 }
             ],
-            dataZoom: [
-                {
-                    type: 'inside',
-                    xAxisIndex: [0, 1],
-                    start: 0,
-                    end: 30
-                },
-                {
-                    show: true,
-                    type: 'slider',
-                    xAxisIndex: [0, 1],
-                    top: '85%',
-                    start: 0,
-                    end: 30
-                }
-            ],
             series: [
                 {
                     name: 'Dow-Jones index',
                     type: 'candlestick',
-                    data: stock.values
+                    data: displayData.initialValues
                 },
-                {
+                /*{
                     name: 'MA5',
                     type: 'line',
                     data: calculateMA(5, stock),
@@ -219,18 +226,45 @@
                     lineStyle: {
                         normal: {opacity: 0.5}
                     }
-                },
+                },*/
                 {
                     name: 'Volume',
                     type: 'bar',
                     xAxisIndex: 1,
                     yAxisIndex: 1,
-                    data: stock.volumes
+                    data: displayData.initialVolumes
                 }
             ]
         };
 
         demo5Chart.hideLoading();
         demo5Chart.setOption(opinion);
+
+        setInterval(function () {
+            var addCategoryData = displayData.restCategoryData.shift();
+            var addValuesData = displayData.restValues.shift();
+            var addVolumesData = displayData.restVolumes.shift();
+            demo5Chart.setOption({
+                xAxis: [
+                    {
+                        data: addCategoryData
+                    },
+                    {
+                        /*gridIndex: 1,*/
+                        data: addCategoryData
+                    }
+                ],
+                series: [
+                    {
+                        name: 'Dow-Jones index',
+                        data: addValuesData
+                    },
+                    {
+                        name: 'Volume',
+                        data: addVolumesData
+                    }
+                ]
+            });
+        }, 200);
     });
 })(jQuery);
