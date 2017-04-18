@@ -243,41 +243,47 @@
         demo5Chart.setOption(opinion);
     });
 
-    setInterval(function () {
-        var addCategoryData = displayData.restCategoryData.shift();
-        var addValuesData = displayData.restValues.shift();
-        var addVolumesData = displayData.restVolumes.shift();
+    var timer = setInterval(function () {
 
-        displayData.initialCategoryData.shift();
-        displayData.initialCategoryData.push(addCategoryData);
+        var addCategoryData = (displayData.restCategoryData).shift();
+        var addValuesData = (displayData.restValues).shift();
+        var addVolumesData = (displayData.restVolumes).shift();
 
-        displayData.initialValues.shift();
-        displayData.initialValues.push(addValuesData);
+        if(displayData.restCategoryData.length == 0) {
+            clearInterval(timer);
+        }
+        else {
+            displayData.initialCategoryData.shift();
+            displayData.initialCategoryData.push(addCategoryData);
 
-        displayData.initialVolumes.shift();
-        displayData.initialVolumes.push(addVolumesData);
+            displayData.initialValues.shift();
+            displayData.initialValues.push(addValuesData);
 
-        demo5Chart.setOption({
-            xAxis: [
-                {
-                    data: displayData.initialCategoryData
-                },
-                {
-                    gridIndex: 1,
-                    data: displayData.initialCategoryData
-                }
-            ],
-            series: [
-                {
-                    name: 'Dow-Jones index',
-                    data: displayData.initialValues
-                },
-                {
-                    name: 'Volume',
-                    data: displayData.initialVolumes
-                }
-            ]
-        });
+            displayData.initialVolumes.shift();
+            displayData.initialVolumes.push(addVolumesData);
 
+            demo5Chart.setOption({
+                xAxis: [
+                    {
+                        data: displayData.initialCategoryData
+                    },
+                    {
+                        gridIndex: 1,
+                        data: displayData.initialCategoryData
+                    }
+                ],
+                series: [
+                    {
+                        name: 'Dow-Jones index',
+                        data: displayData.initialValues
+                    },
+                    {
+                        name: 'Volume',
+                        data: displayData.initialVolumes
+                    }
+                ]
+            });
+        }
     }, 200);
+
 })(jQuery);
